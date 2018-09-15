@@ -41,7 +41,7 @@ dependencies {
     compile(library("commons_collections"))
     compile("org.apache.mina:mina-core")
     compile(testLibrary("sampleCheck")) {
-        exclude(group = "org.gradle", module = "sample-discovery")
+        exclude(group = "org.asciidoctor", module = "asciidoctorj")
     }
 
     implementation(project(":dependencyManagement"))
