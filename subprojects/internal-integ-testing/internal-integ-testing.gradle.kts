@@ -40,10 +40,7 @@ dependencies {
     compile(library("jansi"))
     compile(library("commons_collections"))
     compile("org.apache.mina:mina-core")
-    compile(testLibrary("sampleCheck")) {
-        // asciidoctorj depends on a lot of stuff, which causes `Can't create process, argument list too long` on Windows
-        exclude(group = "org.asciidoctor", module = "asciidoctorj")
-    }
+    compile(testLibrary("sampleCheck"))
 
     implementation(project(":dependencyManagement"))
 

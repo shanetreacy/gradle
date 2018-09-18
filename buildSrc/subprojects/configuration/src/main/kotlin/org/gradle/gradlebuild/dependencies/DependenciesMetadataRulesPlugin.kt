@@ -51,6 +51,7 @@ open class DependenciesMetadataRulesPlugin : Plugin<Project> {
                 withModule("org.spockframework:spock-core", ReplaceCglibNodepWithCglibRule::class.java)
                 withModule("org.jmock:jmock-legacy", ReplaceCglibNodepWithCglibRule::class.java)
                 withModule("cglib:cglib", NoAntRule::class.java)
+                withModule("org.gradle:sample-check", ExcludeAsciidoctorjRule::class.java)
 
                 //TODO check if we can upgrade the following dependencies and remove the rules
                 withModule("org.codehaus.groovy:groovy-all", DowngradeIvyRule::class.java)
@@ -289,6 +290,18 @@ open class NoAntRule : ComponentMetadataRule {
             withDependencies {
                 // because Gradle requires a different Ant version
                 removeAll { it.name == "ant" }
+            }
+        }
+    }
+}
+
+
+open class ExcludeAsciidoctorjRule : ComponentMetadataRule {
+    override fun execute(context: ComponentMetadataContext) {
+        context.details.allVariants {
+            withDependencies {
+                // asciidoctorj depends on a lot of stuff, which causes `Can't create process, argument list too long` on Windows
+                removeAll { it.name == "asciidoctorj" }
             }
         }
     }
